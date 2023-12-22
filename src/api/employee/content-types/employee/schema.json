@@ -21,7 +21,7 @@
     "Function": {
       "type": "string"
     },
-    "last_rendez_vous": {
+    "RdvList": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::rdv.rdv"

@@ -783,7 +783,7 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
     Name: Attribute.String;
     Lastname: Attribute.String;
     Function: Attribute.String;
-    last_rendez_vous: Attribute.Relation<
+    RdvList: Attribute.Relation<
       'api::employee.employee',
       'oneToMany',
       'api::rdv.rdv'

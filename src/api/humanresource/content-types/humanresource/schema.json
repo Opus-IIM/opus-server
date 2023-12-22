@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "humanresources",
+  "info": {
+    "singularName": "humanresource",
+    "pluralName": "humanresources",
+    "displayName": "Humanresource",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Lastname": {
+      "type": "string"
+    },
+    "Email": {
+      "type": "email",
+      "required": true
+    },
+    "Password": {
+      "type": "password",
+      "required": true
+    }
+  }
+}

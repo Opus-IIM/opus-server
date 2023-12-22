@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notes",
+  "info": {
+    "singularName": "note",
+    "pluralName": "notes",
+    "displayName": "Note",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Content": {
+      "type": "blocks"
+    },
+    "Priority": {
+      "type": "integer",
+      "max": 10,
+      "min": 1
+    },
+    "Employee": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::employee.employee"
+    },
+    "Author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::humanresource.humanresource"
+    },
+    "Rdv": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::rdv.rdv"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "employees",
+  "info": {
+    "singularName": "employee",
+    "pluralName": "employees",
+    "displayName": "Employee",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Lastname": {
+      "type": "string"
+    },
+    "Function": {
+      "type": "string"
+    },
+    "last_rendez_vous": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::rdv.rdv"
+    },
+    "Email": {
+      "type": "email",
+      "required": true
+    },
+    "Password": {
+      "type": "password",
+      "required": true
+    }
+  }
+}

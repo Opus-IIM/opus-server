@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rdvs",
+  "info": {
+    "singularName": "rdv",
+    "pluralName": "rdvs",
+    "displayName": "Rdv",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Date": {
+      "type": "datetime"
+    },
+    "Status": {
+      "type": "boolean"
+    },
+    "Employee": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::employee.employee"
+    },
+    "Humanresource": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::humanresource.humanresource"
+    }
+  }
+}

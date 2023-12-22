@@ -573,6 +573,50 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 50;
+      }>;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -724,46 +768,149 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
+export interface ApiEmployeeEmployee extends Schema.CollectionType {
+  collectionName: 'employees';
   info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
+    singularName: 'employee';
+    pluralName: 'employees';
+    displayName: 'Employee';
     description: '';
   };
   options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
+    draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 50;
-      }>;
-    code: Attribute.String & Attribute.Unique;
+    Name: Attribute.String;
+    Lastname: Attribute.String;
+    Function: Attribute.String;
+    last_rendez_vous: Attribute.Relation<
+      'api::employee.employee',
+      'oneToMany',
+      'api::rdv.rdv'
+    >;
+    Email: Attribute.Email & Attribute.Required;
+    Password: Attribute.Password & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::employee.employee',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::employee.employee',
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHumanresourceHumanresource extends Schema.CollectionType {
+  collectionName: 'humanresources';
+  info: {
+    singularName: 'humanresource';
+    pluralName: 'humanresources';
+    displayName: 'Humanresource';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Name: Attribute.String;
+    Lastname: Attribute.String;
+    Email: Attribute.Email & Attribute.Required;
+    Password: Attribute.Password & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::humanresource.humanresource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::humanresource.humanresource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNoteNote extends Schema.CollectionType {
+  collectionName: 'notes';
+  info: {
+    singularName: 'note';
+    pluralName: 'notes';
+    displayName: 'Note';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Content: Attribute.Blocks;
+    Priority: Attribute.Integer &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 10;
+      }>;
+    Employee: Attribute.Relation<
+      'api::note.note',
+      'oneToOne',
+      'api::employee.employee'
+    >;
+    Author: Attribute.Relation<
+      'api::note.note',
+      'oneToOne',
+      'api::humanresource.humanresource'
+    >;
+    Rdv: Attribute.Relation<'api::note.note', 'oneToOne', 'api::rdv.rdv'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::note.note', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::note.note', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRdvRdv extends Schema.CollectionType {
+  collectionName: 'rdvs';
+  info: {
+    singularName: 'rdv';
+    pluralName: 'rdvs';
+    displayName: 'Rdv';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Date: Attribute.DateTime;
+    Status: Attribute.Boolean;
+    Employee: Attribute.Relation<
+      'api::rdv.rdv',
+      'oneToOne',
+      'api::employee.employee'
+    >;
+    Humanresource: Attribute.Relation<
+      'api::rdv.rdv',
+      'oneToOne',
+      'api::humanresource.humanresource'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::rdv.rdv', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::rdv.rdv', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -782,10 +929,14 @@ declare module '@strapi/types' {
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
+      'api::employee.employee': ApiEmployeeEmployee;
+      'api::humanresource.humanresource': ApiHumanresourceHumanresource;
+      'api::note.note': ApiNoteNote;
+      'api::rdv.rdv': ApiRdvRdv;
     }
   }
 }

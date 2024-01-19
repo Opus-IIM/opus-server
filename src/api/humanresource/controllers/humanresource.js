@@ -15,19 +15,19 @@ module.exports = createCoreController(
 
       const { results: humanResources, pagination } = await strapi
         .service("api::humanresource.humanresource")
-        .find({ ...sanitizedQueryParams, fields: ['Email'] });
+        .find({ ...sanitizedQueryParams, fields: ['Name', 'Lastname'] });
 
-      const employees = await strapi.service("api::employee.employee").find({ fields: ['Adress'] });
+      const rdvs = await strapi.service("api::rdv.rdv").find({ fields: ['Date'] });
 
-      const notes = await strapi.service("api::note.note").find({ fields: ['Content'] });
+      const notes = await strapi.service("api::note.note").find({ fields: ['Priority'] });
 
       const sanitizedResults = await this.sanitizeOutput(humanResources, ctx);
-      const sanitizedEmployees = await this.sanitizeOutput(employees.results, ctx);
+      const sanitizedRdvs = await this.sanitizeOutput(rdvs.results, ctx);
       const sanitizedNotes = await this.sanitizeOutput(notes.results, ctx);
 
       const combinedResults = {
         humanResources: sanitizedResults,
-        employees: sanitizedEmployees,
+        rdvs: sanitizedRdvs,
         notes: sanitizedNotes,
       };
 

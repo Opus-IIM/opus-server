@@ -790,6 +790,9 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
     >;
     Email: Attribute.Email & Attribute.Required;
     Password: Attribute.Password & Attribute.Required;
+    Seniority: Attribute.Date;
+    PhoneNumber: Attribute.Text;
+    Adress: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -854,7 +857,6 @@ export interface ApiNoteNote extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Content: Attribute.Blocks;
     Priority: Attribute.Integer &
       Attribute.SetMinMax<{
         min: 1;
@@ -871,6 +873,7 @@ export interface ApiNoteNote extends Schema.CollectionType {
       'api::humanresource.humanresource'
     >;
     Rdv: Attribute.Relation<'api::note.note', 'oneToOne', 'api::rdv.rdv'>;
+    Content: Attribute.Text & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

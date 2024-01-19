@@ -99,7 +99,10 @@ module.exports = createCoreController(
         notes: sanitizedNotes,
       };
 
-      return this.transformResponse(combinedResultsWithCounts, { pagination });
+      return {
+          success: true,
+          data: combinedResultsWithCounts,
+      }
     },
   })
 );
